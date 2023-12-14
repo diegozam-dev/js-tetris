@@ -1,9 +1,13 @@
+import {
+  BLOCK_SIZE,
+  BOARD_HEIGHT,
+  BOARD_WIDTH,
+  EVENT_MOVEMENTS,
+  PIECES,
+} from './consts';
+
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
-
-const BLOCK_SIZE = 20;
-const BOARD_WIDTH = 13;
-const BOARD_HEIGHT = 26;
 
 canvas.width = BLOCK_SIZE * BOARD_WIDTH;
 canvas.height = BLOCK_SIZE * BOARD_HEIGHT;
@@ -70,40 +74,6 @@ function draw() {
   });
 }
 
-const PIECES = [
-  [
-    [1, 1],
-    [1, 1],
-  ],
-  [[1, 1, 1, 1]],
-  [
-    [0, 1, 0],
-    [1, 1, 1],
-  ],
-  [
-    [1, 0],
-    [1, 0],
-    [1, 1],
-  ],
-  [
-    [0, 1],
-    [0, 1],
-    [1, 1],
-  ],
-  [
-    [1, 1, 1],
-    [0, 1, 0],
-  ],
-  [
-    [0, 1, 1],
-    [1, 1, 0],
-  ],
-  [
-    [1, 1, 0],
-    [0, 1, 1],
-  ],
-];
-
 const piece = {
   position: { x: getRandomInitialPosition(), y: 0 },
   shape: getRandomPiece(),
@@ -121,21 +91,21 @@ function getRandomInitialPosition() {
 document.addEventListener('keydown', (e) => {
   e.preventDefault();
 
-  if (e.key === 'ArrowLeft') {
+  if (e.key === EVENT_MOVEMENTS.left) {
     piece.position.x--;
     if (checkCollision()) {
       piece.position.x++;
     }
   }
 
-  if (e.key === 'ArrowRight') {
+  if (e.key === EVENT_MOVEMENTS.right) {
     piece.position.x++;
     if (checkCollision()) {
       piece.position.x--;
     }
   }
 
-  if (e.key === 'ArrowDown') {
+  if (e.key === EVENT_MOVEMENTS.down) {
     piece.position.y++;
     if (checkCollision()) {
       piece.position.y--;
@@ -144,7 +114,7 @@ document.addEventListener('keydown', (e) => {
     }
   }
 
-  if (e.key === 'ArrowUp') {
+  if (e.key === EVENT_MOVEMENTS.up) {
     rotatePiece();
   }
 });
